@@ -21,7 +21,7 @@ defmodule PokeDollar.Worker do
 
       "!poke_dollar" ->
         poke_dollar = get_poke
-        message = "O Pokedollar está em #{poke_dollar.real}, Pokemon: #{poke_dollar.poke}"
+        message = "[Dollar] #{poke_dollar.real} \n[Pokemon] #{poke_dollar.poke}"
         Api.create_message(msg.channel_id,
         content: message,
         file: poke_dollar.image)
