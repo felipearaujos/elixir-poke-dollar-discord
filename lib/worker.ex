@@ -22,7 +22,9 @@ defmodule PokeDollar.Worker do
       "!poke_dollar" ->
         poke_dollar = get_poke
         message = "O Pokedollar está em #{poke_dollar.real}, Pokemon: #{poke_dollar.poke}"
-        Api.create_message(msg.channel_id, message)
+        Api.create_message(msg.channel_id,
+        content: message,
+        file: poke_dollar.image)
 
       "!help" ->
         Api.create_message(msg.channel_id, "Pika")
@@ -54,9 +56,12 @@ defmodule PokeDollar.Worker do
   end
 
   def to_poke_response(formatted) do
+    poke_id = String.to_integer(String.replace(formatted, ".", ""))
+
     %{
-      poke_id: String.to_integer(String.replace(formatted, ".", "")),
-      real: "R$ #{String.replace(formatted, ".", ",")}"
+      poke_id: poke_id,
+      real: "R$ #{String.replace(formatted, ".", ",")}",
+      image: "priv/images/#{poke_id}.png"
     }
   end
 
